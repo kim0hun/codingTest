@@ -12,4 +12,20 @@ def makeOne(N):
     return dp[N]
 
 N = int(input())
-print(makeOne(N))
+for x in range(2, N+1):
+    print(makeOne(N))
+
+# def solution(n, count, arr):
+#     if n % 3 == 0:
+#         solution(n//3, count+1, arr)
+#     if n % 2 == 0:
+#         solution(n//2, count+1, arr)
+#     if n > 1:
+#         solution(n-1, count+1, arr)
+#     if n == 1:
+#         arr.add(count)
+
+# N = int(input())
+# s = set()
+# solution(N, 0, s)
+# print(min(s))
