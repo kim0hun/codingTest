@@ -13,7 +13,7 @@ def makeOne(N):
 
 N = int(input())
 for x in range(2, N+1):
-    print(makeOne(N))
+    print(makeOne(x))
 
 # def solution(n, count, arr):
 #     if n % 3 == 0:
