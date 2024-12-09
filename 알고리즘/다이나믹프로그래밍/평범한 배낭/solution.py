@@ -1,72 +1,23 @@
-# def cal(K, W, sumSet, resultList):
-#     nothing = True
-#     for i in range(len(W)):
-#         copyW = list.copy(W)
-#         copySumSet = set.copy(sumSet)
-#         if K >= W[i]:
-#             nothing = False
-#             copySumSet.add(copyW[i])
-#             copyW.pop(i)
-#             cal(K-W[i], copyW, copySumSet, resultList)
-            
-#     if nothing and sumSet not in resultList:
-#         resultList.append(sumSet)
+n, k = map(int, input().split()) # n 물건 수, k 최대 무게
 
-# i1 = input().split(' ')
-# N, K = int(i1[0]), int(i1[1])
+product = [[0, 0]]
 
-# W = []
-# V = {}
+for _ in range(n):
+    w, v = map(int, input().split())
+    product.append([w, v])
 
-# for _ in range(N):
-#     i2 = input().split()
-#     W.append(int(i2[0]))
-#     V[int(i2[0])] = int((i2[1]))
+dp = []
 
-# resultList = []
-# s = set()
-
-# # for i in range(len(W)):
-
-# # cal(K, W, s, resultList)
-# print(resultList)
-
-# max = 0
-# for setList in resultList:
-#     sum = 0
-#     for v in setList:
-#         sum += V[v]
-#     if max < sum:
-#         max = sum
-
-# print(max)
-
-##################################
-
-from itertools import combinations
-
-N, K = map(int, input().split(' '))
-
-WV = {}
-
-for _ in range(N):
-    W, V = map(int, input().split())
-    if W in WV.keys() and WV[W] > V:
-        continue
-    else:
-        WV[W] = V
-
-max = 0
-for i in range(1, len(WV.keys())+1):
-    for x in combinations(WV.keys(), i):
-        if sum(x) <= 7:
-            valueSum = 0
-            for y in x:
-                valueSum += WV[y]
-            if valueSum > max:
-                max = valueSum
-                
-print(max)
-
-##################################
-
+for _ in range(n+1):
+    dp.append([0] * (k+1))
+    
+for p in range(1, n+1):
+    w = product[p][0]
+    v = product[p][1]
+    for maxWeight in range(1, k+1):
+        if maxWeight < w: # 최대 담을 수 있는 무게가 물건 무게보다 작을 경우
+            dp[p][maxWeight] = dp[p-1][maxWeight]
+        else:
+            dp[p][maxWeight] = max(dp[p-1][maxWeight-w] + v, dp[p-1][maxWeight])
+        
+print(dp[n][k])
