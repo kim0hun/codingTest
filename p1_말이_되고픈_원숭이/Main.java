@@ -1,4 +1,4 @@
-package P1_말이_되고픈_원숭이;
+package p1_말이_되고픈_원숭이;
 
 import java.util.*;
 
