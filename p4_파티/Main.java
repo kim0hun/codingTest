@@ -23,23 +23,24 @@ public class Main {
         }
     }
 
-    static int[] dijkstra(int startNode, List<List<Node>> graph, int n) {
+    static int[] dijkstra(int startIndex, List<List<Node>> graph, int n) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
-        int distance[] = new int[n+1];
+        int distance[] = new int[n + 1];
         Arrays.fill(distance, MAX_VALUE);
-        distance[startNode] = 0;
-        pq.offer(new Node(startNode, 0));
+        distance[startIndex] = 0;
+        pq.offer(new Node(startIndex, 0));
 
-        while(!pq.isEmpty()) {
+        while (!pq.isEmpty()) {
             Node currentNode = pq.poll();
             int currentIndex = currentNode.index;
             int currentDistance = currentNode.distance;
 
-            if (distance[currentIndex] < currentDistance) continue;
+            if (distance[currentIndex] < currentDistance)
+                continue;
 
             for (Node neighbor : graph.get(currentIndex)) {
                 int newDistance = currentDistance + neighbor.distance;
-                
+
                 if (newDistance < distance[neighbor.index]) {
                     distance[neighbor.index] = newDistance;
                     pq.offer(new Node(neighbor.index, newDistance));
@@ -61,7 +62,7 @@ public class Main {
         List<List<Node>> graph = new ArrayList<>();
         List<List<Node>> reverseGraph = new ArrayList<>();
 
-        for(int i=0;i<=n;i++) {
+        for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
             reverseGraph.add(new ArrayList<>());
         }
@@ -81,12 +82,11 @@ public class Main {
         int[] distanceToX = dijkstra(x, reverseGraph, n);
 
         int maxTime = 0;
-        for (int i= 1;i<=n;i++) {
+        for (int i = 1; i <= n; i++) {
             maxTime = Math.max(maxTime, distanceFromX[i] + distanceToX[i]);
         }
 
         System.out.println(maxTime);
-
         br.close();
     }
 }
